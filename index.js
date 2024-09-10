@@ -71,6 +71,10 @@ app.get("/create-chat", (req, res) => {
     .json({ roomId, link: `${process.env.FRONTEND_URL}/chat/${roomId}` });
 });
 
+app.get("/", (req, res)=>{
+  res.send("server is on ✔")
+})
+
 app.post("/upload", upload.single("file"), async (req, res) => {
   if (!req.file) {
     return res.status(400).json({ message: "No file uploaded" });
