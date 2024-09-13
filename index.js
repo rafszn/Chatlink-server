@@ -71,9 +71,9 @@ app.get("/create-chat", (req, res) => {
     .json({ roomId, link: `${process.env.FRONTEND_URL}/chat/${roomId}` });
 });
 
-app.get("/", (req, res)=>{
-  res.send("server is on ✔")
-})
+app.get("/", (req, res) => {
+  res.send("server is on ✔");
+});
 
 app.post("/upload", upload.single("file"), async (req, res) => {
   if (!req.file) {
@@ -86,6 +86,8 @@ app.post("/upload", upload.single("file"), async (req, res) => {
       ? "image"
       : file.mimetype.startsWith("video/")
       ? "video"
+      : file.mimetype.startsWith("audio/")
+      ? "auto"
       : "raw";
     const resCloudinary = await v2.uploader.upload(file.path, {
       resource_type: resourceType,
